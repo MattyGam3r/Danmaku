@@ -13,8 +13,8 @@ class Player{
             player = new sf::Sprite;
             playerTexture->loadFromFile("player.png");
             player->setTexture(*playerTexture);
-            player->setPosition(sf::Vector2f(1000,1000));
-            player->setOrigin(sf::Vector2f(1000,1000));
+            player->setPosition(sf::Vector2f(240,500));
+            player->setOrigin(sf::Vector2f(0,0));
             speed = 4.5;
         }
         void draw(sf::RenderWindow* window){

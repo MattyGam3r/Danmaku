@@ -7,7 +7,7 @@ class Entity{
         sf::Vector2f velocity;
         float depth;
     public:
-        virtual void update(double timeElapsed) = 0;
+        virtual void update(double timeElapsed, sf::RenderWindow* window) = 0;
         
 
 };

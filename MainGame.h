@@ -2,18 +2,22 @@
 #define MAINGAME_H
 #include <SFML/Graphics.hpp>
 #include <string>
-
+#include "Enemy.h"
 #include "Player.h"
 class MainGame {
  private:
   sf::RenderWindow* window;
   Player* reimu;
   sf::View* view;
+  Enemy* jigg;
  public:
   MainGame(sf::Vector2f size, std::string title) {
     window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title);
     reimu = new Player();
     window->setFramerateLimit(60);
+    sf::Texture* enemy1Sprite = new sf::Texture;
+    enemy1Sprite->loadFromFile("enemy.png");
+    jigg = new Enemy(1,sf::Vector2f(0,0.1),enemy1Sprite, sf::Vector2f(100,100));
   }
 
   
@@ -54,6 +58,7 @@ class MainGame {
       }
       window->clear();
       reimu->draw(window);
+      jigg->update(timeElapsed.asMilliseconds(), window);
       window->display();
     }
   }
