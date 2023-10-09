@@ -5,6 +5,7 @@ class Player{
     private:
         sf::Texture* playerTexture;
         sf::Sprite* player;
+        float speed;
     public:
     //Default Constructor for Player
         Player(){
@@ -12,35 +13,35 @@ class Player{
             player = new sf::Sprite;
             playerTexture->loadFromFile("player.png");
             player->setTexture(*playerTexture);
-            player->setPosition(sf::Vector2f(1,1));
-            player->setOrigin(sf::Vector2f(1,1));
+            player->setPosition(sf::Vector2f(1000,1000));
+            player->setOrigin(sf::Vector2f(1000,1000));
+            speed = 4.5;
         }
         void draw(sf::RenderWindow* window){
             window->draw(*player);
         }
         
         //Movement
-        void move_right(float speed){
-            sf::Vector2f position = player->getPosition();
-            position.x += speed;
-            player->setPosition(position);
+        void move_right(double timeElapsed){
+            player->setPosition(player->getPosition().x+speed*timeElapsed, player->getPosition().y);
         }
-        void move_left(float speed){
-            sf::Vector2f position = player->getPosition();
-            position.x -= speed;
-            player->setPosition(position);
+        void move_left(double timeElapsed){
+            player->setPosition(player->getPosition().x-speed*timeElapsed, player->getPosition().y);
         }
-        void move_up(float speed){
-            sf::Vector2f position = player->getPosition();
-            position.y -= speed;
-            player->setPosition(position);
+        void move_up(double timeElapsed){
+            player->setPosition(player->getPosition().x, player->getPosition().y-speed*timeElapsed);
         }
-        void move_down(float speed){
-            sf::Vector2f position = player->getPosition();
-            position.y += speed;
-            player->setPosition(position);
+        void move_down(double timeElapsed){
+            player->setPosition(player->getPosition().x, player->getPosition().y+speed*timeElapsed);
         }
+        //Shooting and Bomb
         
+        void setSpeed(float speed){
+            this->speed = speed;
+        }
+        float getSpeed(){
+            return speed;
+        }
         
 };
 

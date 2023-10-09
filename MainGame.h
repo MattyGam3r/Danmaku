@@ -8,16 +8,20 @@ class MainGame {
  private:
   sf::RenderWindow* window;
   Player* reimu;
-
+  sf::View* view;
  public:
-  MainGame(int size, std::string title) {
-    window = new sf::RenderWindow(sf::VideoMode(size, size), title);
+  MainGame(sf::Vector2f size, std::string title) {
+    window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title);
     reimu = new Player();
     window->setFramerateLimit(60);
   }
+
+  
   void run() {
+    sf::Clock clock;
     while (window->isOpen()) {
       sf::Event e;
+      sf::Time timeElapsed = clock.restart();
       while (window->pollEvent(e)) {
         if (e.type == sf::Event::Closed) {
           window->close();
@@ -25,18 +29,28 @@ class MainGame {
           delete window;
           return;
         }
+        if (e.type == sf::Event::KeyPressed){
+          if (e.key.code == sf::Keyboard::Escape){
+            window->close();
+          }
+        }
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        reimu->move_right(4.5);
+        reimu->move_right(timeElapsed.asMilliseconds());
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-        reimu->move_left(4.5);
+        reimu->move_left(timeElapsed.asMilliseconds());
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-        reimu->move_up(4.5);
+        reimu->move_up(timeElapsed.asMilliseconds());
       }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-        reimu->move_down(4.5);
+        reimu->move_down(timeElapsed.asMilliseconds());
+      }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
+        reimu->setSpeed(0.1);
+      }else{
+        reimu->setSpeed(0.3);
       }
       window->clear();
       reimu->draw(window);
