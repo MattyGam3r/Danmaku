@@ -9,8 +9,8 @@ int main() {
   //Defining First Enemy (Froakie)
   sf::Texture* froakieSprite = new sf::Texture;
   froakieSprite->loadFromFile("enemy.png");
-  Enemy * froakieLeft = new Enemy(1, sf::Vector2f(0,0.1), froakieSprite, sf::Vector2f(0,0));
-  Enemy * froakieRight = new Enemy(1, sf::Vector2f(0,0.1), froakieSprite, sf::Vector2f(400,0));
+  Enemy * froakieLeft = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(-20,0));
+  Enemy * froakieRight = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(380,0));
   int * numWaves = new int;
   *numWaves = 10;
 
