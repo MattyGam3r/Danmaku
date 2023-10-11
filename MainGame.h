@@ -1,23 +1,49 @@
 #ifndef MAINGAME_H
 #define MAINGAME_H
 #include <SFML/Graphics.hpp>
+//For Debugging
+#include <iostream>
+#include <cmath>
 #include <string>
 #include "Enemy.h"
 #include "Player.h"
+#include "Wave.h"
 class MainGame {
  private:
+  //Stores the render window which is needed to display the graphics
   sf::RenderWindow* window;
   Player* reimu;
   sf::View* view;
-  Enemy* jigg;
+
+  //Stores all of the Entity's which have to be drawn into the game
+  Entity ** drawableObjects;
+  //Stores the amount of entities which have to be drawn
+  int *numDrawableObjects;
+  int *maxDrawableObjects;
+  double totalTime;
+
+  //Stores all the waves which will be spawned in the game
+  Wave ** waves;
+  //Stores the number of waves (will need this to loop through 'waves')
+  int * numWaves;
+  //Stores the highest wave spawned (used to not repeat loops)
+  int * waveSpawned = new int;
  public:
-  MainGame(sf::Vector2f size, std::string title) {
+  MainGame(sf::Vector2f size, std::string title, Wave ** waves, int * numWaves) {
     window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title);
     reimu = new Player();
     window->setFramerateLimit(60);
-    sf::Texture* enemy1Sprite = new sf::Texture;
-    enemy1Sprite->loadFromFile("enemy.png");
-    jigg = new Enemy(1,sf::Vector2f(0,0.1),enemy1Sprite, sf::Vector2f(100,100));
+    drawableObjects = new Entity * [1000];
+    numDrawableObjects = new int;
+    *numDrawableObjects = 0;
+    maxDrawableObjects = new int;
+    *maxDrawableObjects = 1000;
+    //this->numWaves = new int ;
+    this->numWaves = numWaves;
+    double * totalTime = new double;
+    this->waves = waves;
+    *waveSpawned = 0;
+    *totalTime = 0;
   }
 
   
@@ -56,9 +82,26 @@ class MainGame {
       }else{
         reimu->setSpeed(0.3);
       }
+
+      //Checking if any more Waves need to be Initialised
+      for (int i = *waveSpawned; i < (*numWaves); i++){
+        if (waves[0]->getEnemyTime() == floor(totalTime)){
+          std::cout << "Wave Spawned";
+          waves[i]->SpawnEnemies(drawableObjects, numDrawableObjects, maxDrawableObjects, waveSpawned);
+        }
+      }
       window->clear();
       reimu->draw(window);
-      jigg->update(timeElapsed.asMilliseconds(), window);
+      //Update all the entities
+      std::cout << "Drawable Objects: " << *numDrawableObjects;
+      for (int i = 0; i < *numDrawableObjects; i++){
+        drawableObjects[i]->update(timeElapsed.asMilliseconds(),window);
+      }
+      
+      totalTime += timeElapsed.asSeconds();
+      std::cout << "| Total Time Elapsed " << floor(totalTime) << std::endl;
+
+      //jigg->update(timeElapsed.asMilliseconds(), window);
       window->display();
     }
   }
