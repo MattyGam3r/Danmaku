@@ -39,8 +39,13 @@ class Wave{
             
             for (int i = 0; i < numEnemies; i++){
 
+<<<<<<< HEAD
                 if (*numObjects < *maxObjects){
                     std::cout << "Spawning Objects ";
+=======
+                if (numObjects < maxObjects){
+                    std::cout << "Spawning Objects";
+>>>>>>> 718c29ae60149b0c514e2baa74199fc864e4d918
                     objectsToBeDrawn[*numObjects] = enemies[i];
                     *numObjects += 1;
                     *waveSpawned += 1;
