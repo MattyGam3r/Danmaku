@@ -2,13 +2,14 @@
 #define BULLET_H
 #include "Entity.h"
 #include "cmath"
+#include <iostream>
 class Bullet: public Entity{
     protected:
         double speed;
-        sf::Vector2f velocity;
     public:
         void update(double timeElapsed, sf::RenderWindow* window){
             sf::Vector2f currentPos = sprite.getPosition();
+            //std::cout << currentPos.y << " ";
             sprite.setPosition(currentPos.x + timeElapsed*velocity.x, currentPos.y + timeElapsed*velocity.y);
             window->draw(sprite);
         }

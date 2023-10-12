@@ -5,6 +5,7 @@ class Enemy : public Entity{
     private:
         sf::Vector2f startPosition;
         sf::Vector2f endPosition;
+        float enemyLife = 3;
     public:
         Enemy(float depth){
             this->depth = depth;
@@ -24,6 +25,14 @@ class Enemy : public Entity{
             sprite.setPosition(currentPos.x + timeElapsed*velocity.x, currentPos.y + timeElapsed*velocity.y);
             window->draw(sprite);
         }
+        void takeDamage(){
+            this->enemyLife -= 1;
+            if (this->enemyLife <= 0){
+                std::cout << "Enemy Dead" << std::endl;
+                delete this;
+            }
+        }
 };
+
 
 #endif

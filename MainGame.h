@@ -77,6 +77,9 @@ class MainGame {
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
         reimu->move_down(timeElapsed.asMilliseconds());
       }
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z)){
+        reimu->shoot(drawableObjects, numDrawableObjects, maxDrawableObjects, totalTime);
+      }
       if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)){
         reimu->setSpeed(0.1);
       }else{
@@ -96,6 +99,14 @@ class MainGame {
       std::cout << "Drawable Objects: " << *numDrawableObjects;
       for (int i = 0; i < *numDrawableObjects; i++){
         drawableObjects[i]->update(timeElapsed.asMilliseconds(),window);
+        //Checking if any of the sprites are out of bounds, if they are: then it deletes them
+        if (drawableObjects[i]->getSprite().getPosition().x < -50 || drawableObjects[i]->getSprite().getPosition().y < 0 || drawableObjects[i]->getSprite().getPosition().y > 700){
+          for (int j = i; j < *numDrawableObjects-1; j++){
+            drawableObjects[j] = drawableObjects[j+1];
+          }
+          //Sets the drawable objects down by one
+          *numDrawableObjects -= 1;
+        }
       }
       
       totalTime += timeElapsed.asSeconds();

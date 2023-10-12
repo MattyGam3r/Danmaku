@@ -9,8 +9,8 @@ int main() {
   //Defining First Enemy (Froakie)
   sf::Texture* froakieSprite = new sf::Texture;
   froakieSprite->loadFromFile("enemy.png");
-  Enemy * froakieLeft = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(-20,0));
-  Enemy * froakieRight = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(380,0));
+  Enemy * froakieLeft = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(-20,1));
+  Enemy * froakieRight = new Enemy(1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(380,1));
   int * numWaves = new int;
   *numWaves = 10;
 
@@ -20,7 +20,7 @@ int main() {
   }
   waves[0]->addEnemy(froakieLeft);
   waves[0]->addEnemy(froakieRight);
-  waves[0]->setEnemyTime(1);
+  waves[0]->setEnemyTime(3);
   MainGame game(sf::Vector2f(480,640), "Game", waves, numWaves);
   sf::Time time;
   game.run();
