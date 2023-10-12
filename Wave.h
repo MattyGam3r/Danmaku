@@ -25,7 +25,7 @@ class Wave{
         }
 
         void addEnemy(Enemy * enemy){
-            std::cout << "adding enemy";
+            std::cout << "adding enemy" << std::endl;
             if (numEnemies < maxEnemies){
                 enemies[numEnemies] = enemy;
                 numEnemies++;
@@ -39,14 +39,14 @@ class Wave{
             
             for (int i = 0; i < numEnemies; i++){
 
-                if (numObjects < maxObjects){
-                    std::cout << "Spawning Objects";
+                if (*numObjects < *maxObjects){
+                    std::cout << "Spawning Objects ";
                     objectsToBeDrawn[*numObjects] = enemies[i];
                     *numObjects += 1;
                     *waveSpawned += 1;
                 }
                 else{
-                    std::cout << "Too many entities!!!" << std::endl;
+                    std::cout << "Too many entities!!! " << std::endl;
                 }
             }
         }
