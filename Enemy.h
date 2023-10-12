@@ -16,7 +16,7 @@ class Enemy : public Entity{
         Enemy(float depth, sf::Vector2f velocity, sf::Texture *texture, sf::Vector2f position){
             this->depth = depth;
             this->velocity = velocity;
-            sprite.setTexture(*texture);
+            sprite.setTexture(*texture  );
             sprite.setPosition(position);
         }
         void update(double timeElapsed,sf::RenderWindow* window){
