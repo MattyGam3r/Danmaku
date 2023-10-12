@@ -15,7 +15,9 @@ class Entity{
             return timer;
         }
         virtual void update(double timeElapsed, sf::RenderWindow* window) = 0;
-        
+        sf::Sprite getSprite(){
+            return sprite;
+        }
 
 };
 #endif

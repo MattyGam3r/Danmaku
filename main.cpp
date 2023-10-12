@@ -13,7 +13,6 @@ int main() {
   //Defining First Enemy (Froakie)
   sf::Texture* froakieSprite = new sf::Texture;
   froakieSprite->loadFromFile("enemy.png");
-
   int * numWaves = new int;
   *numWaves = 10;
 
