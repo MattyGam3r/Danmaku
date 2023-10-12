@@ -1,0 +1,4 @@
+h 001 2
+e froakie -20 0
+e froakie 380 0
+c

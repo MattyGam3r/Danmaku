@@ -28,7 +28,6 @@ class Enemy : public Entity{
         void takeDamage(){
             this->enemyLife -= 1;
             if (this->enemyLife <= 0){
-                std::cout << "Enemy Dead" << std::endl;
                 delete this;
             }
         }
