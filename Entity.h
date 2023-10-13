@@ -18,6 +18,9 @@ class Entity{
         sf::Sprite getSprite(){
             return sprite;
         }
+        float getDepth(){
+            return depth;
+        }
 
 };
 #endif

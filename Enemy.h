@@ -8,17 +8,19 @@ class Enemy : public Entity{
         float enemyLife = 3;
     public:
         Enemy(float depth){
-            this->depth = depth;
+            this->depth = 128;
         }
         Enemy(float depth, sf::Vector2f velocity){
-            this->depth = depth;
+            this->depth = 128;
             this->velocity = velocity;
+            
         }
         Enemy(float depth, sf::Vector2f velocity, sf::Texture *texture, sf::Vector2f position){
-            this->depth = depth;
+            this->depth = 128;
             this->velocity = velocity;
             sprite.setTexture(*texture);
             sprite.setPosition(position);
+            sprite.setOrigin(64,64);
         }
         void update(double timeElapsed,sf::RenderWindow* window){
             sf::Vector2f currentPos = sprite.getPosition();

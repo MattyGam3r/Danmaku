@@ -9,7 +9,7 @@ class PlayerBullet : public Bullet{
 
     public:
         PlayerBullet(sf::Vector2f startPos){
-            this->depth = 1;
+            this->depth = 16;
             sprite.setPosition(startPos);
             velocity = sf::Vector2f(0,-1);
             bulletSprite.loadFromFile("bull1.png");
@@ -19,7 +19,7 @@ class PlayerBullet : public Bullet{
             velocity = sf::Vector2f(0.01,0);
             bulletSprite.loadFromFile("bull1.png");
             sprite.setTexture(bulletSprite);
-            this->depth = 1;
+            this->depth = 16;
         }
         void SpawnBullet(sf::Sprite * sprite){
             PlayerBullet(sprite->getPosition());

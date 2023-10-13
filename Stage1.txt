@@ -1,0 +1,5 @@
+h 004 2
+e froakie 64 0
+e froakie 380 0
+e froakie 200 100
+c
