@@ -7,6 +7,9 @@ class Bullet: public Entity{
     protected:
         double speed;
     public:
+        Bullet(){
+            setTag("bullet");
+        }
         void update(double timeElapsed, sf::RenderWindow* window){
             sf::Vector2f currentPos = sprite.getPosition();
             //std::cout << currentPos.y << " ";
@@ -23,7 +26,10 @@ class Bullet: public Entity{
             velocityTowardsPoint.y = ydif/length;
             return velocityTowardsPoint;
         }
-
+        void getHit(Entity ** objectsToBeDrawn, int * numObjects, int * index){
+            shiftArray(objectsToBeDrawn, numObjects, index);
+            delete this;
+        }
 
 };
 

@@ -110,6 +110,11 @@ class MainGame {
           //Check for collision
           for (int j = i+1; j < *numDrawableObjects; j++){
             if (pow((drawableObjects[i]->getSprite().getPosition().x - drawableObjects[j]->getSprite().getPosition().x),2) + pow(drawableObjects[i]->getSprite().getPosition().y - drawableObjects[j]->getSprite().getPosition().y,2) <= (drawableObjects[i]->getDepth() + drawableObjects[j]->getDepth())){
+              //Checking that two enemies, or bullets (enemy or player) aren't colliding with eachother
+              if (drawableObjects[i]->getTag() != drawableObjects[j]->getTag()){
+                drawableObjects[i]->getHit(drawableObjects, numDrawableObjects, &i);
+                drawableObjects[j]->getHit(drawableObjects, numDrawableObjects, &j);
+              }
               std::cout << "Hit!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
             }
           }
