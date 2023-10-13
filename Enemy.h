@@ -5,7 +5,7 @@ class Enemy : public Entity{
     private:
         sf::Vector2f startPosition;
         sf::Vector2f endPosition;
-        float enemyLife = 3;
+        float enemyLife = 10;
     public:
         Enemy(float depth){
             this->depth = 128;

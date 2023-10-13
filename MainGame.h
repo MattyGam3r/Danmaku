@@ -99,14 +99,7 @@ class MainGame {
       //std::cout << "Drawable Objects: " << *numDrawableObjects;
       for (int i = 0; i < *numDrawableObjects; i++){
         drawableObjects[i]->update(timeElapsed.asMilliseconds(),window);
-        //Checking if any of the sprites are out of bounds, if they are: then it deletes them
-        if (drawableObjects[i]->getSprite().getPosition().x < -50 || drawableObjects[i]->getSprite().getPosition().y < 0 || drawableObjects[i]->getSprite().getPosition().y > 700){
-          for (int j = i; j < *numDrawableObjects-1; j++){
-            drawableObjects[j] = drawableObjects[j+1];
-          }
-          //Sets the drawable objects down by one
-          *numDrawableObjects -= 1;
-        }
+
           //Check for collision
           for (int j = i+1; j < *numDrawableObjects; j++){
             if (pow((drawableObjects[i]->getSprite().getPosition().x - drawableObjects[j]->getSprite().getPosition().x),2) + pow(drawableObjects[i]->getSprite().getPosition().y - drawableObjects[j]->getSprite().getPosition().y,2) <= (drawableObjects[i]->getDepth() + drawableObjects[j]->getDepth())){
@@ -118,6 +111,14 @@ class MainGame {
               std::cout << "Hit!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
             }
           }
+        //Checking if any of the sprites are out of bounds, if they are: then it deletes them
+        if (drawableObjects[i]->getSprite().getPosition().x < -50 || drawableObjects[i]->getSprite().getPosition().y < 0 || drawableObjects[i]->getSprite().getPosition().y > 700){
+          for (int j = i; j < *numDrawableObjects-1; j++){
+            drawableObjects[j] = drawableObjects[j+1];
+          }
+          //Sets the drawable objects down by one
+          *numDrawableObjects -= 1;
+        }
       }
       
       totalTime += timeElapsed.asSeconds();

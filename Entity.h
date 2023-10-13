@@ -36,7 +36,7 @@ class Entity{
                 objectsToBeDrawn[i] = objectsToBeDrawn[i+1];
             }
             *numObjects -= 1;
-            *index -= 1;
+            //*index -= 1;
         }
 
 };
