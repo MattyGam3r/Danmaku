@@ -104,11 +104,13 @@ class MainGame {
           for (int j = i+1; j < *numDrawableObjects; j++){
             if (pow((drawableObjects[i]->getSprite().getPosition().x - drawableObjects[j]->getSprite().getPosition().x),2) + pow(drawableObjects[i]->getSprite().getPosition().y - drawableObjects[j]->getSprite().getPosition().y,2) <= (drawableObjects[i]->getDepth() + drawableObjects[j]->getDepth())){
               //Checking that two enemies, or bullets (enemy or player) aren't colliding with eachother
-              if (drawableObjects[i]->getTag() != drawableObjects[j]->getTag()){
+              if (drawableObjects[i]->getTag() != drawableObjects[j]->getTag() && !((drawableObjects[i]->getTag() == "enemy" && drawableObjects[j]->getTag() == "enemybullet") || (drawableObjects[i]->getTag() == "enemybullet" && drawableObjects[j]->getTag()=="enemy"))){
                 drawableObjects[i]->getHit(drawableObjects, numDrawableObjects, &i);
                 drawableObjects[j]->getHit(drawableObjects, numDrawableObjects, &j);
+                std::cout << "Hit!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
               }
-              std::cout << "Hit!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+              
+
             }
           }
         //Checking if any of the sprites are out of bounds, if they are: then it deletes them
@@ -119,7 +121,13 @@ class MainGame {
           //Sets the drawable objects down by one
           *numDrawableObjects -= 1;
         }
+
+        //If the object is an enemy, fire bullet!
+        if (drawableObjects[i]->getTag() == "enemy"){
+          drawableObjects[i]->shoot(drawableObjects, numDrawableObjects, maxDrawableObjects, totalTime);
+        }
       }
+
       
       totalTime += timeElapsed.asSeconds();
       //std::cout << "| Total Time Elapsed " << floor(totalTime) << std::endl;

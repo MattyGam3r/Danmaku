@@ -48,7 +48,7 @@ class Player{
             }
         }
         void shoot(Entity ** objectsToBeDrawn, int * numObjects, int * maxObjects, double totalTime){
-            if (totalTime - timeBulletFired > 0.1){
+            if (totalTime - timeBulletFired > 0.25){
                 if (*numObjects < *maxObjects){
                     //std::cout << "Spawning Bullets";
                     objectsToBeDrawn[*numObjects] = new PlayerBullet(player->getPosition());

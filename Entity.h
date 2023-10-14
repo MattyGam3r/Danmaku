@@ -39,5 +39,10 @@ class Entity{
             //*index -= 1;
         }
 
+        //PURELY FOR ENEMY ONLY!
+        virtual void shoot(Entity ** objectsToBeDrawn, int * numObjects, int * maxObjects, double totalTime){
+            std::cout << "shoot wrong";
+        }
+
 };
 #endif
