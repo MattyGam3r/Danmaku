@@ -8,6 +8,8 @@ class Player{
         sf::Sprite* player;
         float speed;
         double timeBulletFired;
+        int healthPoints;
+        double depth;
     public:
     //Default Constructor for Player
         Player(){
@@ -19,6 +21,8 @@ class Player{
             player->setOrigin(sf::Vector2f(0,0));
             speed = 4.5;
             timeBulletFired = -1;
+            healthPoints = 3;
+            depth = 10;
         }
         void draw(sf::RenderWindow* window){
             window->draw(*player);
@@ -61,6 +65,16 @@ class Player{
             }
         }
 
+        sf::Sprite * getSprite(){
+            return player;
+        }
+        double getDepth(){
+            return depth;
+        }
+
+        void getHit(){
+            this->healthPoints -= 1;
+        }
         //Shooting and Bomb
         void setSpeed(float speed){
             this->speed = speed;
@@ -68,6 +82,7 @@ class Player{
         float getSpeed(){
             return speed;
         }
+
         
 };
 

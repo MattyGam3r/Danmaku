@@ -14,6 +14,7 @@ class PlayerBullet : public Bullet{
             velocity = sf::Vector2f(0,-1);
             bulletSprite.loadFromFile("bull1.png");
             sprite.setTexture(bulletSprite);
+            setTag("playerbullet");
             Bullet();
         }
         PlayerBullet(){
@@ -21,6 +22,7 @@ class PlayerBullet : public Bullet{
             bulletSprite.loadFromFile("bull1.png");
             sprite.setTexture(bulletSprite);
             this->depth = 16;
+            setTag("playerbullet");
             Bullet();
         }
         void SpawnBullet(sf::Sprite * sprite){
@@ -29,7 +31,6 @@ class PlayerBullet : public Bullet{
         void hit(Enemy * enemy){
             //enemy->takeDamage();
         };
-
 };
 
 
