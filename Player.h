@@ -10,6 +10,8 @@ class Player{
         double timeBulletFired;
         int healthPoints;
         double depth;
+        sf::Font font;
+        sf::Text playerHealthText;
     public:
     //Default Constructor for Player
         Player(){
@@ -23,9 +25,17 @@ class Player{
             timeBulletFired = -1;
             healthPoints = 3;
             depth = 10;
+
+            font.loadFromFile("Christmas Bell.otf");
+            playerHealthText.setFont(font);
+            playerHealthText.setFillColor(sf::Color::Red);
+            playerHealthText.setString("Player Health: " + std::to_string(healthPoints) );
+            playerHealthText.setCharacterSize(40);
+            playerHealthText.setPosition(0,0);
         }
         void draw(sf::RenderWindow* window){
             window->draw(*player);
+            window->draw(playerHealthText);
         }
         sf::Vector2f getPosition(){
             return this->getPosition();
@@ -74,6 +84,10 @@ class Player{
 
         void getHit(){
             this->healthPoints -= 1;
+            playerHealthText.setString("Player Health: " + std::to_string(healthPoints) );
+            if(this->healthPoints <= 0){
+                
+            }
         }
         //Shooting and Bomb
         void setSpeed(float speed){

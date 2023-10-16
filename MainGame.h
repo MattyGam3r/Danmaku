@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Wave.h"
+#include "MainMenu.h"
 class MainGame {
  private:
   //Stores the render window which is needed to display the graphics
@@ -21,7 +22,8 @@ class MainGame {
   int *numDrawableObjects;
   int *maxDrawableObjects;
   double totalTime;
-
+  sf::Texture backgroundImage;
+  sf::RectangleShape background;
   //Stores all the waves which will be spawned in the game
   Wave ** waves;
   //Stores the number of waves (will need this to loop through 'waves')
@@ -29,8 +31,8 @@ class MainGame {
   //Stores the highest wave spawned (used to not repeat loops)
   int * waveSpawned = new int;
  public:
-  MainGame(sf::Vector2f size, std::string title, Wave ** waves, int * numWaves) {
-    window = new sf::RenderWindow(sf::VideoMode(size.x, size.y), title);
+  MainGame(sf::Vector2f size, std::string title, Wave ** waves, int * numWaves, sf::RenderWindow * window) {
+    this->window = window;
     reimu = new Player();
     window->setFramerateLimit(60);
     drawableObjects = new Entity * [1000];
@@ -44,6 +46,13 @@ class MainGame {
     this->waves = waves;
     *waveSpawned = 0;
     *totalTime = 0;
+
+    //For the Background
+    background.setSize(sf::Vector2f(1000,1000));
+    background.setPosition(sf::Vector2f(0,0));
+    backgroundImage.loadFromFile("background.jpg");
+    background.setTexture(&backgroundImage);
+
   }
 
   
@@ -95,7 +104,9 @@ class MainGame {
           waves[i]->SpawnEnemies(drawableObjects, numDrawableObjects, maxDrawableObjects, waveSpawned);
         }
       }
+      
       window->clear();
+      window->draw(background);
       reimu->draw(window);
       //Update all the entities
       std::cout << "Drawable Objects: " << *numDrawableObjects;

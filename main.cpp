@@ -8,8 +8,16 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Wave.h"
-
+#include "MainMenu.h"
 int main() {
+  //Instructions Screen
+  sf::RectangleShape Intructionsbackground;
+  sf::Texture * instructionsBackgroundArt = new sf::Texture;
+  Intructionsbackground.setSize(sf::Vector2f(480,640));
+  Intructionsbackground.setPosition(0,0);
+  instructionsBackgroundArt->loadFromFile("Instructions.png");
+  Intructionsbackground.setTexture(instructionsBackgroundArt);
+
   //Defining First Enemy (Froakie)
   sf::Texture* froakieSprite = new sf::Texture;
   froakieSprite->loadFromFile("enemy.png");
@@ -68,12 +76,69 @@ int main() {
     }
     infile.close();
 }
+  bool instructionsSelected = false;
   
+  sf::RenderWindow * window = new sf::RenderWindow(sf::VideoMode(480, 640), "MERRY CHRISTMAS!");
+  MainMenu * menu = new MainMenu(480, 640);
+  MainGame * game = new MainGame(sf::Vector2f(480,640), "Game", waves, numWaves, window);
+  while (window->isOpen()){
+    sf::Event event;
+    
+
+    while (window->pollEvent(event)){
+      switch (event.type){
+
+        case sf::Event::KeyReleased:
+          switch (event.key.code){
+            case sf::Keyboard::Up:
+              menu->MoveUp();
+              break;
+            
+            case sf::Keyboard::Down:
+              menu->MoveDown();
+              break;
+            case sf::Keyboard::Escape:
+              if (instructionsSelected == true){
+                instructionsSelected = false;
+              }
+              else{
+                window->close();
+              }
+              break;
+            case sf::Keyboard::Return:
+              switch (menu->MainMenuPressed()){
+                  case 0:
+                      game->run();
+                      break;
+                  case 1:
+                      instructionsSelected = true;
+                      break;
+
+                  case 3:
+                      window->close();
+                      break;
+              }
+              break;
+          }
+          break;
+        case sf::Event::Closed:
+          window->close();
+
+          break;
+      }
+    }
+    window->clear();
+
+    
+    if (instructionsSelected == true){
+      window->draw(Intructionsbackground);
+    }
+    else{
+      menu->draw(window);
+    }
+    window->display();
+  }
   // waves[0]->addEnemy(froakieLeft);
   // waves[0]->setEnemyTime(1);
-  MainGame game(sf::Vector2f(480,640), "Game", waves, numWaves);
-  sf::Time time;
-  game.run();
-
 
 }
