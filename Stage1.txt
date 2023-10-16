@@ -1,5 +1,10 @@
-h 004 2
+h 004 3
 e froakie 64 0
 e froakie 380 0
 e froakie 200 100
+c
+h 008 3
+e froakie 40 0
+e froakie 340 0
+e froakie 160 100
 c

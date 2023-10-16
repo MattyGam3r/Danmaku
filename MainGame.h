@@ -89,15 +89,16 @@ class MainGame {
 
       //Checking if any more Waves need to be Initialised
       for (int i = *waveSpawned; i < (*numWaves); i++){
-        if (waves[0]->getEnemyTime() == floor(totalTime)){
-          //std::cout << "Wave Spawned";
+        std::cout << i;
+        if (waves[i]->getEnemyTime() == floor(totalTime)){
+          std::cout << "Wave Spawned | ";
           waves[i]->SpawnEnemies(drawableObjects, numDrawableObjects, maxDrawableObjects, waveSpawned);
         }
       }
       window->clear();
       reimu->draw(window);
       //Update all the entities
-      //std::cout << "Drawable Objects: " << *numDrawableObjects;
+      std::cout << "Drawable Objects: " << *numDrawableObjects;
       for (int i = 0; i < *numDrawableObjects; i++){
         drawableObjects[i]->update(timeElapsed.asMilliseconds(),window);
 
@@ -137,7 +138,7 @@ class MainGame {
 
       
       totalTime += timeElapsed.asSeconds();
-      //std::cout << "| Total Time Elapsed " << floor(totalTime) << std::endl;
+      std::cout << "| Total Time Elapsed " << floor(totalTime) << " | numwaves: " << *numWaves << std::endl;
 
       //jigg->update(timeElapsed.asMilliseconds(), window);
       window->display();

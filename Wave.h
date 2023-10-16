@@ -43,12 +43,12 @@ class Wave{
                     std::cout << "Spawning Objects ";
                     objectsToBeDrawn[*numObjects] = enemies[i];
                     *numObjects += 1;
-                    *waveSpawned += 1;
                 }
                 else{
                     std::cout << "Too many entities!!! " << std::endl;
                 }
             }
+            *waveSpawned += 1;
         }
 };
 

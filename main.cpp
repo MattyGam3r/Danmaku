@@ -14,10 +14,10 @@ int main() {
   sf::Texture* froakieSprite = new sf::Texture;
   froakieSprite->loadFromFile("enemy.png");
   int * numWaves = new int;
-  *numWaves = 10;
+  *numWaves = 2;
 
-  Wave ** waves = new Wave*[10];
-  for (int i =0; i < 10; i++){
+  Wave ** waves = new Wave*[*numWaves];
+  for (int i =0; i < *numWaves; i++){
     waves[i] = new Wave;
   }
 
