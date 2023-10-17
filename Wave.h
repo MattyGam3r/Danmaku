@@ -1,3 +1,8 @@
+//WAVE CLASS
+//This class holds multiple enemies
+//When the timer hits the same valuie as the enemytime variable
+//The enemies are rendered in
+
 #ifndef WAVE_H
 #define WAVE_H
 #include <iostream>

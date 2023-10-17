@@ -1,3 +1,8 @@
+//PLAYER CLASS
+//This is the class which the player control
+//The player can move and shoot, when the healthPoints reaches 0, the game ends
+
+
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "PlayerBullet.h"
@@ -14,88 +19,36 @@ class Player{
         sf::Text playerHealthText;
     public:
     //Default Constructor for Player
-        Player(){
-            playerTexture = new sf::Texture;
-            player = new sf::Sprite;
-            playerTexture->loadFromFile("player.png");
-            player->setTexture(*playerTexture);
-            player->setPosition(sf::Vector2f(240,500));
-            player->setOrigin(sf::Vector2f(0,0));
-            speed = 4.5;
-            timeBulletFired = -1;
-            healthPoints = 3;
-            depth = 10;
+        Player();
+    //Draws the player to the render window, aswell as the health value of the player
+        void draw(sf::RenderWindow* window);
+        //Returns the position of the player
+        sf::Vector2f getPosition();
+        //Updates the player's position to the right
+        void move_right(double timeElapsed);
+        //Updates the player's position to the left
+        void move_left(double timeElapsed);
+        //Updates the player's position upwards
+        void move_up(double timeElapsed);
+        //Updates the player's position downwards
+        void move_down(double timeElapsed);
 
-            font.loadFromFile("Christmas Bell.otf");
-            playerHealthText.setFont(font);
-            playerHealthText.setFillColor(sf::Color::Red);
-            playerHealthText.setString("Player Health: " + std::to_string(healthPoints) );
-            playerHealthText.setCharacterSize(40);
-            playerHealthText.setPosition(0,0);
-        }
-        void draw(sf::RenderWindow* window){
-            window->draw(*player);
-            window->draw(playerHealthText);
-        }
-        sf::Vector2f getPosition(){
-            return this->getPosition();
-        }
-        //Movement
-        void move_right(double timeElapsed){
-            if (player->getPosition().x < 460){
-                player->setPosition(player->getPosition().x+speed*timeElapsed, player->getPosition().y);
-            }
-        }
-        void move_left(double timeElapsed){
-            if (player->getPosition().x > 0){
-                player->setPosition(player->getPosition().x-speed*timeElapsed, player->getPosition().y);
-            }
-        }
-        void move_up(double timeElapsed){
-            if (player->getPosition().y > 0){
-                player->setPosition(player->getPosition().x, player->getPosition().y-speed*timeElapsed);
-            }
-        }
-        void move_down(double timeElapsed){
-            if (player->getPosition().y < 600){
-                player->setPosition(player->getPosition().x, player->getPosition().y+speed*timeElapsed);
-            }
-        }
-        void shoot(Entity ** objectsToBeDrawn, int * numObjects, int * maxObjects, double totalTime){
-            if (totalTime - timeBulletFired > 0.25){
-                if (*numObjects < *maxObjects){
-                    //std::cout << "Spawning Bullets";
-                    objectsToBeDrawn[*numObjects] = new PlayerBullet(player->getPosition());
-                    *numObjects += 1;
-                }
-                else{
-                    std::cout << "Too many entities!!!" << std::endl;
-                }
-                timeBulletFired = totalTime;
-            }
-        }
+        //This is called when the player presses 'Z', it spawns a bullet, and adds it to the 'objectsToBeDrawn' array
+        void shoot(Entity ** objectsToBeDrawn, int * numObjects, int * maxObjects, double totalTime);
 
-        sf::Sprite * getSprite(){
-            return player;
-        }
-        double getDepth(){
-            return depth;
-        }
+        //Returns the sprite of the player
+        sf::Sprite * getSprite();
+        //Returns the depth of the player (used for hitboxes)
+        double getDepth();
 
-        void getHit(){
-            this->healthPoints -= 1;
-            playerHealthText.setString("Player Health: " + std::to_string(healthPoints) );
-            if(this->healthPoints <= 0){
-                
-            }
-        }
-        //Shooting and Bomb
-        void setSpeed(float speed){
-            this->speed = speed;
-        }
-        float getSpeed(){
-            return speed;
-        }
+        //This is caleed when the player collides with an Enemy, or Bullet
+        void getHit();
+        //Gets the players health
+        int getHealth();
+        //Sets the speed variable
+        void setSpeed(float speed);
+        //Returns the speed variable
+        float getSpeed();
 
         
 };

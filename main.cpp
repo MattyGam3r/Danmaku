@@ -10,6 +10,27 @@
 #include "Wave.h"
 #include "MainMenu.h"
 int main() {
+  //Main Menu Screen
+  sf::RectangleShape mainMenuBackground;
+  sf::Texture * mainMenuBackgroundArt = new sf::Texture;
+  mainMenuBackground.setSize(sf::Vector2f(480,640));
+  mainMenuBackground.setPosition(0,0);
+  mainMenuBackgroundArt->loadFromFile("MenuBackground.png");
+  mainMenuBackground.setTexture(mainMenuBackgroundArt);
+  //Win Screen
+  sf::RectangleShape winBackground;
+  sf::Texture * winBackgroundArt = new sf::Texture;
+  winBackground.setSize(sf::Vector2f(480,640));
+  winBackground.setPosition(0,0);
+  winBackgroundArt->loadFromFile("WinScreen.png");
+  winBackground.setTexture(winBackgroundArt);
+  //Lose Screen
+  sf::RectangleShape loseBackground;
+  sf::Texture * loseBackgroundArt = new sf::Texture;
+  loseBackground.setSize(sf::Vector2f(480,640));
+  loseBackground.setPosition(0,0);
+  loseBackgroundArt->loadFromFile("LoseScreen.png");
+  loseBackground.setTexture(loseBackgroundArt);
   //Instructions Screen
   sf::RectangleShape Intructionsbackground;
   sf::Texture * instructionsBackgroundArt = new sf::Texture;
@@ -17,73 +38,21 @@ int main() {
   Intructionsbackground.setPosition(0,0);
   instructionsBackgroundArt->loadFromFile("Instructions.png");
   Intructionsbackground.setTexture(instructionsBackgroundArt);
+  double * score = new double;
+  *score = 0;
 
-  //Defining First Enemy (Froakie)
-  sf::Texture* froakieSprite = new sf::Texture;
-  froakieSprite->loadFromFile("enemy.png");
-  int * numWaves = new int;
-  *numWaves = 2;
 
-  Wave ** waves = new Wave*[*numWaves];
-  for (int i =0; i < *numWaves; i++){
-    waves[i] = new Wave;
-  }
 
-  int waveIter = 0;
-
-  std::ifstream infile("Stage1.txt");
-  
-  if (infile.is_open()) {
-    int enemyIter = 0;
-    Enemy** enemyArray = new Enemy* [10];
-
-    std::string line;
-    while (std::getline(infile, line)) {
-        std::istringstream ss(line);
-        std::string header = "";
-
-        ss >> header;
-        // std::cout << line << std::endl;
-
-          if(header == "h") {
-            // std::cout << "h " << std::endl;
-            std::string SenemyTime, SenemyCount;
-            ss >> SenemyTime >> SenemyCount;
-            std::cout << header << " " << SenemyTime << " " << SenemyCount << std::endl;
-
-            int enemyTime = std::stoi(SenemyTime);
-            int enemyCount = std::stoi(SenemyCount);
-            
-            waves[waveIter]->setEnemyTime(enemyTime);
-          }
-          if(header == "e") {
-            std::string enemyName, SxPos, SyPos;
-            ss >> enemyName >> SxPos >> SyPos;
-            std::cout << header << " " << enemyName << " " << SxPos << " " << SyPos << std::endl;
-
-            int xPos = std::stoi(SxPos);
-            int yPos = std::stoi(SyPos);
-
-            // std::cout << "e" << " " << enemyName << " " << xPos << " " << yPos << std::endl;
-            enemyArray[enemyIter] = new Enemy (1, sf::Vector2f(0,0.05), froakieSprite, sf::Vector2f(xPos,yPos));
-            waves[waveIter]->addEnemy(enemyArray[enemyIter]);
-            enemyIter += 1;
-          }
-          if(header == "c") {
-            std::cout << "c" << std::endl;
-            waveIter += 1;
-          }
-    }
-    infile.close();
-}
   bool instructionsSelected = false;
   
   sf::RenderWindow * window = new sf::RenderWindow(sf::VideoMode(480, 640), "MERRY CHRISTMAS!");
   MainMenu * menu = new MainMenu(480, 640);
-  MainGame * game = new MainGame(sf::Vector2f(480,640), "Game", waves, numWaves, window);
+  MainGame * game;
+  bool gameCleared = false;
+  bool gameFinished = false;
   while (window->isOpen()){
     sf::Event event;
-    
+
 
     while (window->pollEvent(event)){
       switch (event.type){
@@ -98,7 +67,8 @@ int main() {
               menu->MoveDown();
               break;
             case sf::Keyboard::Escape:
-              if (instructionsSelected == true){
+              if (instructionsSelected == true || gameFinished == true){
+                gameFinished = false;
                 instructionsSelected = false;
               }
               else{
@@ -108,7 +78,14 @@ int main() {
             case sf::Keyboard::Return:
               switch (menu->MainMenuPressed()){
                   case 0:
-                      game->run();
+                  
+                      game = new MainGame(sf::Vector2f(480,640), "Game", window);
+                      gameCleared = game->run();
+                      gameFinished = true;
+                      if (gameCleared == true){
+                        std::cout << "You WiN!!!" << std::endl;
+                      }
+                      delete game;
                       break;
                   case 1:
                       instructionsSelected = true;
@@ -123,18 +100,33 @@ int main() {
           break;
         case sf::Event::Closed:
           window->close();
+          delete mainMenuBackgroundArt;
+          delete instructionsBackgroundArt;
+          delete score;
+          delete window;
+          delete menu;
+          return 0;
 
           break;
       }
     }
     window->clear();
-
-    
-    if (instructionsSelected == true){
+    if (gameFinished == true){
+      if (gameCleared == true){
+        window->draw(winBackground);
+      }
+      else{
+        window->draw(loseBackground);
+      }
+    }
+    else if (instructionsSelected == true){
       window->draw(Intructionsbackground);
     }
     else{
+      
+      window->draw(mainMenuBackground);
       menu->draw(window);
+      
     }
     window->display();
   }
