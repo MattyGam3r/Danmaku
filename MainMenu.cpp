@@ -64,7 +64,7 @@ void MainMenu::MoveDown(){
         mainMenu[MainMenuSelected].setFillColor(sf::Color::Red);
 
         MainMenuSelected+=1;
-        if(MainMenuSelected == 4){
+        if(MainMenuSelected == 3){
             MainMenuSelected = 0;
         }
         mainMenu[MainMenuSelected].setFillColor(sf::Color::Green);
