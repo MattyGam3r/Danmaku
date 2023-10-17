@@ -19,17 +19,17 @@ MainMenu::MainMenu(float width, float height){
     mainMenu[1].setCharacterSize(50);
     mainMenu[1].setPosition(50,400);
     //Leaderboards screen
+    //mainMenu[2].setFont(font);
+    //mainMenu[2].setFillColor(sf::Color::Red);
+    //mainMenu[2].setString(">(Leaderboards)<");
+    //mainMenu[2].setCharacterSize(50);
+    //mainMenu[2].setPosition(50,450);
+    //Exit Game
     mainMenu[2].setFont(font);
     mainMenu[2].setFillColor(sf::Color::Red);
-    mainMenu[2].setString(">(Leaderboards)<");
+    mainMenu[2].setString(">(Exit Game)<");
     mainMenu[2].setCharacterSize(50);
-    mainMenu[2].setPosition(50,450);
-    //Exit Game
-    mainMenu[3].setFont(font);
-    mainMenu[3].setFillColor(sf::Color::Red);
-    mainMenu[3].setString(">(Exit Game)<");
-    mainMenu[3].setCharacterSize(50);
-    mainMenu[3].setPosition(80,500);
+    mainMenu[2].setPosition(80,500);
 
 
 }

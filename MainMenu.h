@@ -8,7 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#define Max_main_menu 4
+#define Max_main_menu 3
 class MainMenu
 {
 private:

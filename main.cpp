@@ -91,7 +91,7 @@ int main() {
                       instructionsSelected = true;
                       break;
 
-                  case 3:
+                  case 2:
                       window->close();
                       break;
               }
